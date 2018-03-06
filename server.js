@@ -1,21 +1,27 @@
 'use strict';
 
-// TEMP: Simple In-Memory Database
 const express = require('express');
-
 const data = require('./db/notes');
+const morgan = require('morgan');
+const { PORT } = require('./config');
+
 
 const app = express();
+
+
 app.use(express.static('public'));
+app.use(morgan('combined'));
 
 // Listen for incoming connections
-app.listen(8080, function () {
+app.listen(PORT, function () {
   console.info(`Server listening on ${this.address().port}`);
 }).on('error', err => {
   console.error(err);
 });
 // INSERT EXPRESS APP CODE HERE...
-//app.get('/api/notes', (req, res) => {
+
+
+
 
 app.get('/api/notes', (req, res) => {
   const searchTerm = req.query.searchTerm;
