@@ -105,13 +105,27 @@ const noteful = (function () {
     });
   }
 
+  function handleNoteStartNewSubmit() {
+    $('.js-start-new-note-form').on('submit', event => {
+      event.preventDefault();
+
+      console.log('Start New Note, coming soon...');
+
+    });
+  }
+
 
   function handleNoteDeleteClick() {
     $('.js-notes-list').on('click', '.js-note-delete-button', event => {
       event.preventDefault();
-
-      console.log('Delete Note, coming soon...');
+      const noteId = getNoteIdFromElement(event.currentTarget);
       
+      api.delete(noteId, () => {});
+
+      api.search(store.currentSearchTerm, searchResponse => {
+        store.notes = searchResponse;
+        render();
+      });
     });
   }
 
@@ -119,7 +133,7 @@ const noteful = (function () {
     handleNoteItemClick();
     handleNoteSearchSubmit();
     handleNoteFormSubmit();
-    // handleNoteStartNewSubmit();
+    handleNoteStartNewSubmit();
     handleNoteDeleteClick();
   }
 

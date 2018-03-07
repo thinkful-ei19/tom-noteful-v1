@@ -45,6 +45,17 @@ const api = {
     });
   },
 
+  delete: function (id, obj, callback) {
+    $.ajax({
+      type: 'DELETE',
+      url: `/v1/notes/${id}`,
+      dataType: 'json',
+      success: callback
+      
+
+    });
+  }
+
 
 }; 
 
